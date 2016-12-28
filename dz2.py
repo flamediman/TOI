@@ -72,10 +72,10 @@ class CryptoManager:
         return self.crypto.decrypt(string)
 
     def encryptString(self, string):
-
+        pass
 
     def decryptString(self, string):
-
+        pass
 
 content = open(sys.argv[2], 'r').read()
 key = KeyVernam(open(sys.argv[3], 'r').read())
