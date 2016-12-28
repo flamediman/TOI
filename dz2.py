@@ -49,7 +49,6 @@ class CryptoVernam(Crypto):
         return bytes(string, 'utf-8')
 
     def __bytes_to_string(self, bytesList):
-        print(bytesList)
         return "".join(map(chr, bytesList))
 
     def __xor_string(self, string):
@@ -65,17 +64,19 @@ class CryptoManager:
     def __init__(self, crypto):
         self.crypto = crypto
 
-    def encryptFile(self, inputFileName, outputFileName):
+    def encryptFile(self, string):
+        self.encryptString(string)
         return self.crypto.encrypt(string)
 
-    def decryptFile(self, inputFileName, outputFileName):
+    def decryptFile(self, string):
+        self.decryptString(string)
         return self.crypto.decrypt(string)
 
     def encryptString(self, string):
-        pass
+        print(list(self.crypto.encrypt(string)))
 
     def decryptString(self, string):
-        pass
+        print(self.crypto.decrypt(string))
 
 content = open(sys.argv[2], 'r').read()
 key = KeyVernam(open(sys.argv[3], 'r').read())
