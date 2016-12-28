@@ -56,9 +56,6 @@ class CryptoVernam(Crypto):
         keyBytes = self.__string_to_bytes(self.key.get_value())
         main_list = zip(keyBytes, bytelist)
         bytes_list = list(map(lambda x: x[0] ^ x[1], main_list))
-        print(keyBytes[0])
-        print(bytelist[0])
-        print(bytes_list[0])
         return self.__bytes_to_string(bytes_list)
 
 
