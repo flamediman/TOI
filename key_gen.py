@@ -11,7 +11,8 @@ class VernamKeyGenerator:
         return self.__randomword()
 
     def __randomword(self):
-        return ''.join(random.choice(string.ascii_lowercase) for i in range(self.length))
+        return ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for i in range(self.length))
+
 length = len(open(sys.argv[1], 'r').read())
 key = VernamKeyGenerator(length).generate()
 f = open(sys.argv[2], 'w').write(key)

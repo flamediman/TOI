@@ -3,6 +3,7 @@ import string
 import sys
 
 
+
 class Key:
 
     def __init__(self, value):
@@ -40,22 +41,24 @@ class Crypto:
 class CryptoVernam(Crypto):
 
     def encrypt(self, string):
-        return self.__xor_string(string)
+        return self.__xor_bytes(string)
 
-    def decrypt(self, string):
-        return self.__xor_string(string)
+    def decrypt(self, bytelist):
+        return self.__xor_bytes(bytelist)
 
     def __string_to_bytes(self, string):
-        return bytes(string, 'utf-8')
+        return string.encode('utf-8')
 
     def __bytes_to_string(self, bytesList):
         return "".join(map(chr, bytesList))
 
-    def __xor_string(self, string):
-        stringBytes = self.__string_to_bytes(string)
+    def __xor_bytes(self, bytelist):
         keyBytes = self.__string_to_bytes(self.key.get_value())
-        main_list = zip(keyBytes, stringBytes)
+        main_list = zip(keyBytes, bytelist)
         bytes_list = list(map(lambda x: x[0] ^ x[1], main_list))
+        print(keyBytes[0])
+        print(bytelist[0])
+        print(bytes_list[0])
         return self.__bytes_to_string(bytes_list)
 
 
@@ -78,13 +81,16 @@ class CryptoManager:
     def decryptString(self, string):
         print(self.crypto.decrypt(string))
 
-content = open(sys.argv[2], 'r').read()
 key = KeyVernam(open(sys.argv[3], 'r').read())
 cm = CryptoManager(CryptoVernam(key))
 outputFile = open(sys.argv[4], 'w')
 
 if sys.argv[1] == '--decrypt':
+    content = open(sys.argv[2], 'rb').read()
     outputFile.write(cm.decryptFile(content))
 
 elif sys.argv[1] == '--encrypt':
+    content = open(sys.argv[2], 'rb').read()
     outputFile.write(cm.encryptFile(content))
+
+
